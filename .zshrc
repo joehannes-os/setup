@@ -1,6 +1,9 @@
 export TERM="xterm-256color"
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+if (( ! ${fpath[(I)/usr/local/share/zsh/site-functions]} )); then
+  export FPATH=/usr/local/share/zsh/site-functions:$FPATH
+fi 
 
 # Path to your oh-my-zsh installation.
 export ZSH=/home/joehannes/.oh-my-zsh
@@ -18,7 +21,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
@@ -40,7 +43,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -60,7 +63,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git git-flow github ssh-agent clipboard compleat npm copybuffer
+  git git-flow git-extras github git-hubflow ssh-agent clipboard compleat npm copybuffer zsh-completions
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -93,6 +96,7 @@ export SSH_KEY_PATH="~/.ssh/id_rsa"
 # Example aliases
 alias zshconfig="edit ~/.zshrc"
 alias ohmyzsh="edit ~/.oh-my-zsh"
+eval "$(hub alias -s)"
 
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 zstyle :omz:plugins:ssh-agent identities id_rsa
