@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 # DIRS
 echo "Creating project and local bin dirs"
@@ -29,7 +29,7 @@ if [[ `uname` == 'Darwin' ]]; then
 	brew install gtm
 	pip install jupyter
 	pip install powerline-status
-	gem install node-sass
+	gem install sass
 	gem install github
 fi
 
@@ -37,13 +37,13 @@ if [[ `uname` == 'Linux' ]]; then
 	if command -v apt &> /dev/null; then
 		sudo apt install -y zsh zsh-*
 		sudo apt install -y fonts-powerline powerline
-		sudo apt install -y git git-flow git-extras
+		sudo apt install -y git git-flow git-extras curl
 		sudo apt install -y make ruby golang python3-pip
 		sudo apt install -y chromium-browser
 		sudo snap install atom --classic
 		pip3 install --upgrade pip
 		pip install jupyter
-		sudo gem install node-sass
+		sudo gem install sass
 		sudo gem install github
 		# extra fonts like powerline
 		mkdir ~/.fonts
