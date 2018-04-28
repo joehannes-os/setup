@@ -39,7 +39,7 @@ if [[ `uname` == 'Linux' ]]; then
 		sudo apt install -y fonts-powerline powerline
 		sudo apt install -y git git-flow git-extras curl
 		sudo apt install -y make ruby golang python3-pip
-		sudo apt install -y chromium-browser
+		sudo apt install -y chromium-browser snapd
 		sudo snap install atom --classic
 		pip3 install --upgrade pip
 		pip install jupyter
@@ -94,7 +94,7 @@ autoload -U compinit && compinit
 
 # Install Atom Packages
 echo "INSTALLING atom.io packages with apm"
-curl -o-https://raw.githubusercontent.com/joehannes/osConfig/master/bootstrap_atom.sh | zsh
+curl -o- https://raw.githubusercontent.com/joehannes/osConfig/master/bootstrap_atom.sh | zsh
 
 # ECHOS - Corrections ...
 echo "Don't forget to `git config --global user.email` to company email!"
