@@ -3,8 +3,8 @@
 # DIRS
 echo "Creating project and local bin dirs"
 cd
-mkdir ~/git
-mkdir ~/bin
+mkdir ~/.git
+mkdir ~/.bin
 
 # APPS
 echo "Installing Software/Apps making feel the dev right at home"
@@ -40,6 +40,7 @@ if [[ `uname` == 'Linux' ]]; then
 		sudo apt install -y git git-flow git-extras curl
 		sudo apt install -y make ruby golang python3-pip
 		sudo apt install -y chromium-browser snapd
+		sudo apt install ag peco yank-cli tig fasd ranger realpath w3m elinks tmux nvim
 		sudo snap install atom --classic
 		pip3 install --upgrade pip
 		pip install jupyter
@@ -51,11 +52,11 @@ if [[ `uname` == 'Linux' ]]; then
 		sudo fc-cache
 		# install git-time-metrics
 		wget https://github.com/git-time-metric/gtm/releases/download/v1.2.11/gtm.v1.2.11.linux.tar.gz -O ~/Downloads/gtm.v1.2.11.linux.tar.gz
-		tar xzvf ~/Downloads/gtm.v1.2.11.linux.tar.gz -C ~/bin/
+		tar xzvf ~/Downloads/gtm.v1.2.11.linux.tar.gz -C ~/.bin/
 		# install hub github-wrapper (hub is a git-wrapper for github)
 		wget https://github.com/github/hub/releases/download/v2.3.0-pre10/hub-linux-amd64-2.3.0-pre10.tgz -O ~/Downloads/hub-linux-amd64-2.3.0-pre10.tgz
-		tar xzvf ~/Downloads/hub-linux-amd64-2.3.0-pre10.tgz -C ~/bin
-		sudo ~/bin/hub-linux-amd64-2.3.0-pre10/install
+		tar xzvf ~/Downloads/hub-linux-amd64-2.3.0-pre10.tgz -C ~/.bin
+		sudo ~/.bin/hub-linux-amd64-2.3.0-pre10/install
 		cd
 	fi
 fi
@@ -74,7 +75,7 @@ git config --global github.user "joehannes"
 
 # NODE
 echo "Installing NVM plus latest Node, plus some npm packages ..."
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 source ~/.zshrc
 my_node_version=$(nvm ls-remote | grep Latest | tail -1 | awk '{print $1}')
 nvm install $my_node_version
@@ -89,15 +90,37 @@ git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
 git clone https://github.com/zsh-users/zsh-completions.git ~/.oh-my-zsh/custom/plugins/zsh-completions
 # zshconfig
-curl -o- https://raw.githubusercontent.com/joehannes/osConfig/master/.zshrc > ~/.zshrc
+curl -o- https://raw.githubusercontent.com/joehannes-os/setup/master/.zshrc > ~/.zshrc
 autoload -U compinit && compinit
 
-# Install Atom Packages
-echo "INSTALLING atom.io packages with apm"
-curl -o- https://raw.githubusercontent.com/joehannes/osConfig/master/bootstrap_atom.sh | zsh
+source ~/.zshrc
+
+# ranger plugin(s)
+git clone git@github.com:alexanderjeurissen/ranger_devicons.git ~/.git/ranger_devicons
+cd ~/.git/ranger_devicons
+make install
+cd
+
+# nvim
+curl -o- https://raw.githubusercontent.com/joehannes-os/setup/master/init.vim >> ~/.config/nvim/init.vim
+nvim -c ":PlugInstall" -c ":q" -c ":q"
+
+# tmux
+curl -o- https://raw.githubusercontent.com/joehannes-os/setup/master/.tmux.conf >> ~/.tmux.conf
+
+# util
+git clone git@github.com:joehannes-os/seek.git ~/.git/seek
+git clone git@github.com:joehannes-os/devdocs.git ~/.git/devdocs
+ln -s ~/.git/devdocs/devdocs ~/.bin/dd
+ln -s ~/.git/seek/seek ~/.bin/sf
+
+
+# Install Atom Packages - switched to internal atom-sync
+# echo "INSTALLING atom.io packages with apm"
+# curl -o- https://raw.githubusercontent.com/joehannes/osConfig/master/bootstrap_atom.sh | zsh
 
 # ECHOS - Corrections ...
 echo "Don't forget to `git config --global user.email` to company email!"
-echo "Please set Powerline font for terminal: eg. in iterm -> pref -> profile -> text -> chane font: Meslo for Powerline"
+echo "Please set Powerline font for terminal: eg. in iterm -> pref -> profile -> text -> change font: Meslo for Powerline"
 
 exit 0
