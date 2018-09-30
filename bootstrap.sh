@@ -40,7 +40,7 @@ if [[ `uname` == 'Linux' ]]; then
 		sudo apt install -y git git-flow git-extras curl
 		sudo apt install -y make ruby golang python3-pip
 		sudo apt install -y chromium-browser snapd
-		sudo apt install ag peco yank-cli tig fasd ranger realpath w3m elinks tmux nvim
+		sudo apt install ag peco yank-cli tig fasd ranger realpath w3m elinks tmux nvim -y
 		sudo snap install atom --classic
 		pip3 install --upgrade pip
 		pip install jupyter
@@ -49,6 +49,7 @@ if [[ `uname` == 'Linux' ]]; then
 		# extra fonts like powerline
 		mkdir ~/.fonts
 		curl -o- https://github.com/powerline/fonts/blob/master/Meslo%20Slashed/Meslo%20LG%20M%20Regular%20for%20Powerline.ttf?raw=true > ~/.fonts/Meslo%20LG%20M%20Regular%20for%20Powerline.ttf
+		sudo apt install fonts-hack fonts-hack-ttf -y
 		sudo fc-cache
 		# install git-time-metrics
 		wget https://github.com/git-time-metric/gtm/releases/download/v1.2.11/gtm.v1.2.11.linux.tar.gz -O ~/Downloads/gtm.v1.2.11.linux.tar.gz
