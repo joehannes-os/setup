@@ -39,9 +39,8 @@ if [[ `uname` == 'Linux' ]]; then
 		sudo apt install -y fonts-powerline powerline
 		sudo apt install -y git git-flow git-extras curl
 		sudo apt install -y make ruby golang python3-pip
-		sudo apt install -y chromium-browser snapd
+		sudo apt install -y chromium-browser
 		sudo apt install ag peco yank-cli tig fasd ranger realpath w3m elinks tmux nvim -y
-		sudo snap install atom --classic
 		pip3 install --upgrade pip
 		pip install jupyter
 		sudo gem install sass
