@@ -38,25 +38,16 @@ if [[ `uname` == 'Linux' ]]; then
 		sudo apt install -y zsh zsh-*
 		sudo apt install -y fonts-powerline powerline
 		sudo apt install -y git git-flow git-extras curl
-		sudo apt install -y make ruby golang python3-pip
-		sudo apt install -y chromium-browser
-		sudo apt install ag peco yank-cli tig fasd ranger realpath w3m elinks tmux nvim -y
-		pip3 install --upgrade pip
-		pip install jupyter
-		sudo gem install sass
+		sudo apt install -y make ruby golang
+		sudo apt install -y chromium-browser qutebrowser
+		sudo apt install -y silversearcher-ag peco yank tig fasd ranger w3m lynx elinks tmux
 		sudo gem install github
+		sudo gem install hub
 		# extra fonts like powerline
 		mkdir ~/.fonts
 		curl -o- https://github.com/powerline/fonts/blob/master/Meslo%20Slashed/Meslo%20LG%20M%20Regular%20for%20Powerline.ttf?raw=true > ~/.fonts/Meslo%20LG%20M%20Regular%20for%20Powerline.ttf
 		sudo apt install fonts-hack fonts-hack-ttf -y
 		sudo fc-cache
-		# install git-time-metrics
-		wget https://github.com/git-time-metric/gtm/releases/download/v1.2.11/gtm.v1.2.11.linux.tar.gz -O ~/Downloads/gtm.v1.2.11.linux.tar.gz
-		tar xzvf ~/Downloads/gtm.v1.2.11.linux.tar.gz -C ~/.bin/
-		# install hub github-wrapper (hub is a git-wrapper for github)
-		wget https://github.com/github/hub/releases/download/v2.3.0-pre10/hub-linux-amd64-2.3.0-pre10.tgz -O ~/Downloads/hub-linux-amd64-2.3.0-pre10.tgz
-		tar xzvf ~/Downloads/hub-linux-amd64-2.3.0-pre10.tgz -C ~/.bin
-		sudo ~/.bin/hub-linux-amd64-2.3.0-pre10/install
 		cd
 	fi
 fi
