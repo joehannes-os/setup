@@ -3,7 +3,7 @@
 # DIRS
 echo "Creating project and local bin dirs"
 cd
-mkdir ~/.git
+mkdir ~/git
 mkdir ~/.bin
 
 # APPS
@@ -14,7 +14,6 @@ if [[ `uname` == 'Darwin' ]]; then
 	brew install hub
 	brew install zsh zsh-completions
 	brew tap caskroom/cask
-	brew cask install atom
 	brew cask install git
 	brew cask install google-chrome
 	brew tap caskroom/fonts
@@ -27,9 +26,7 @@ if [[ `uname` == 'Darwin' ]]; then
 	brew install macvim --env-std --with-override-system-vim
 	brew tap git-time-metric/gtm
 	brew install gtm
-	pip install jupyter
 	pip install powerline-status
-	gem install sass
 	gem install github
 fi
 
@@ -66,14 +63,15 @@ git config --global github.user "joehannes"
 
 # NODE
 echo "Installing NVM plus latest Node, plus some npm packages ..."
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-source ~/.zshrc
+cd ~/git
+hub clone nvm-sh/nvm
+./nvm/install.sh
 my_node_version=$(nvm ls-remote | grep Latest | tail -1 | awk '{print $1}')
 nvm install $my_node_version
 nvm use $my_node_version
 echo "nvm use $my_node_version" >> ~/.zshrc
 npm i -g npm
-npm i -g bash-language-server tern typescript create-react-app
+npm i -g bash-language-server tern typescript node-sass
 
 echo "Taking care of your zsh-stuff ..."
 # oh-my-zsh
@@ -81,34 +79,37 @@ git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
 git clone https://github.com/zsh-users/zsh-completions.git ~/.oh-my-zsh/custom/plugins/zsh-completions
 # zshconfig
-curl -o- https://raw.githubusercontent.com/joehannes-os/setup/master/.zshrc > ~/.zshrc
+curl -o- https://raw.githubusercontent.com/joehannes-os/dotfiles/master/.zshrc > ~/.zshrc
 autoload -U compinit && compinit
 
 source ~/.zshrc
 
 # ranger plugin(s)
-git clone git@github.com:alexanderjeurissen/ranger_devicons.git ~/.git/ranger_devicons
-cd ~/.git/ranger_devicons
+git clone git@github.com:alexanderjeurissen/ranger_devicons.git ~/git/ranger_devicons
+cd ~/git/ranger_devicons
 make install
 cd
 
-# nvim
-curl -o- https://raw.githubusercontent.com/joehannes-os/setup/master/init.vim >> ~/.config/nvim/init.vim
-nvim -c ":PlugInstall" -c ":q" -c ":q"
-
-# tmux
-curl -o- https://raw.githubusercontent.com/joehannes-os/setup/master/.tmux.conf >> ~/.tmux.conf
-
 # util
-git clone git@github.com:joehannes-os/seek.git ~/.git/seek
-git clone git@github.com:joehannes-os/devdocs.git ~/.git/devdocs
-ln -s ~/.git/devdocs/devdocs ~/.bin/dd
-ln -s ~/.git/seek/seek ~/.bin/sf
+cd ~/git
+hub clone gpakosz/.tmux
+mv .tmux oh-my-tmux
+cp oh-my-tmux/.tmux.con* ~/
+mkdir joehannes-os && cd joehannes-os
+hub clone joehannes-os/setup
+hub clone joehannes-os/dotfiles
+cd dotfiles
+cp ./.tmux.conf.local ./.editorconfig ./.tigrc ./.promptline.sh ./wakatime.cfg /.zshrc ~/
+mkdir ~/.config
+cp -R ./.config/* ~/.config/
+cp -R ./task ~
+cd
 
+# gitmux
+go get -u github.com/arl/gitmux
 
-# Install Atom Packages - switched to internal atom-sync
-# echo "INSTALLING atom.io packages with apm"
-# curl -o- https://raw.githubusercontent.com/joehannes/osConfig/master/bootstrap_atom.sh | zsh
+# nvim
+nvim -c ":PlugInstall" -c ":q" -c ":q"
 
 # ECHOS - Corrections ...
 echo "Don't forget to `git config --global user.email` to company email!"
