@@ -5,6 +5,7 @@ echo "Creating project and local bin dirs"
 cd
 mkdir ~/git
 mkdir ~/.bin
+mkdir ~/log
 
 # APPS
 echo "Installing Software/Apps making feel the dev right at home"
@@ -35,7 +36,7 @@ if [[ `uname` == 'Linux' ]]; then
 		sudo apt install -y zsh zsh-*
 		sudo apt install -y fonts-powerline powerline
 		sudo apt install -y git git-flow git-extras curl
-		sudo apt install -y make ruby golang
+		sudo apt install -y make ruby golang python-gobject
 		sudo apt install -y chromium-browser qutebrowser
 		sudo apt install -y silversearcher-ag peco yank tig fasd ranger w3m lynx elinks tmux
 		sudo gem install github
@@ -104,6 +105,8 @@ mkdir ~/.config
 cp -R ./.config/* ~/.config/
 cp -R ./task ~
 cd
+systemctl --user enable bugwarrior-pull.timer
+systemctl --user start bugwarrior-pull.timer
 
 # gitmux
 go get -u github.com/arl/gitmux
@@ -114,5 +117,6 @@ nvim -c ":PlugInstall" -c ":q" -c ":q"
 # ECHOS - Corrections ...
 echo "Don't forget to `git config --global user.email` to company email!"
 echo "Please set Powerline font for terminal: eg. in iterm -> pref -> profile -> text -> change font: Meslo for Powerline"
+echo "Run bugwarrior-vault!"
 
 exit 0
