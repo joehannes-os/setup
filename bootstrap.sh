@@ -36,6 +36,7 @@ if [[ `uname` == 'Linux' ]]; then
 		sudo apt install -y zsh zsh-*
 		sudo apt install -y fonts-powerline powerline
 		sudo apt install -y git git-flow git-extras curl
+    sudo apt install -y taskwarrior timewarrior bugwarrior
 		sudo apt install -y make ruby golang python-gobject
 		sudo apt install -y chromium-browser qutebrowser
 		sudo apt install -y silversearcher-ag peco yank tig fasd ranger w3m lynx elinks tmux
