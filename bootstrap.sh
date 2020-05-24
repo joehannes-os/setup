@@ -94,17 +94,30 @@ cd
 
 # util
 cd ~/.local/git
-hub clone gpakosz/.tmux
-mv .tmux oh-my-tmux
+hub clone gpakosz/.tmux oh-my-tmux
 cp oh-my-tmux/.tmux.con* ~/
+
 mkdir joehannes-os && cd joehannes-os
 hub clone joehannes-os/setup
 hub clone joehannes-os/dotfiles
-cd dotfiles
-cp ./.tmux.conf.local ./.editorconfig ./.tigrc ./.promptline.sh ./wakatime.cfg /.zshrc ~/
+hub clone joehannes-os/bin
+
+ln -s ~/.local/git/joehannes-os/dotfiles/.tmux.conf.local ~/.tmux.conf.local
+ln -s ~/.local/git/joehannes-os/dotfiles/.editorconfig ~/.editorconfig
+ln -s ~/.local/git/joehannes-os/dotfiles/.tigrc ~/.tigrc
+ln -s ~/.local/git/joehannes-os/dotfiles/.promptline.sh ~/.promptline.sh
+ln -s ~/.local/git/joehannes-os/dotfiles/.wakatime.cfg ~/.wakatime.cfg
+ln -s ~/.local/git/joehannes-os/dotfiles/.zshrc ~/.zshrc
+
+ln -s ~/.local/git/joehannes-os/bin/camshot ~/.local/bin/camshot
+ln -s ~/.local/git/joehannes-os/bin/camobserve ~/.local/bin/camobserve
+ln -s ~/.local/git/joehannes-os/bin/votd ~/.local/bin/votd
+ln -s ~/.local/git/joehannes-os/bin/yt2mp3 ~/.local/bin/yt2mp3
+
+cd ~/.local/git/joehannes-os/dotfiles
 mkdir ~/.config
 cp -R ./.config/* ~/.config/
-cp -R ./task ~
+cp -R ./task ~/
 cd
 systemctl --user enable bugwarrior-pull.timer
 systemctl --user start bugwarrior-pull.timer
