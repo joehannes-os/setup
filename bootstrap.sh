@@ -3,9 +3,9 @@
 # DIRS
 echo "Creating project and local bin dirs"
 cd
-mkdir ~/git
-mkdir ~/.bin
-mkdir ~/log
+mkdir -p ~/.local/git
+mkdir -p ~/.local/bin
+mkdir -p ~/.local/log
 
 # APPS
 echo "Installing Software/Apps making feel the dev right at home"
@@ -65,7 +65,7 @@ git config --global github.user "joehannes"
 
 # NODE
 echo "Installing NVM plus latest Node, plus some npm packages ..."
-cd ~/git
+cd ~/.local/git
 hub clone nvm-sh/nvm
 ./nvm/install.sh
 my_node_version=$(nvm ls-remote | grep Latest | tail -1 | awk '{print $1}')
@@ -93,7 +93,7 @@ make install
 cd
 
 # util
-cd ~/git
+cd ~/.local/git
 hub clone gpakosz/.tmux
 mv .tmux oh-my-tmux
 cp oh-my-tmux/.tmux.con* ~/
