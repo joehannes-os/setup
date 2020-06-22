@@ -36,12 +36,11 @@ if [[ `uname` == 'Linux' ]]; then
 		sudo apt install -y zsh zsh-*
 		sudo apt install -y fonts-powerline powerline
 		sudo apt install -y git git-flow git-extras curl
-    sudo apt install -y taskwarrior timewarrior bugwarrior tasksh
+		sudo apt install -y taskwarrior timewarrior bugwarrior tasksh
 		sudo apt install -y make ruby golang python-gobject
 		sudo apt install -y chromium-browser qutebrowser
 		sudo apt install -y silversearcher-ag peco yank tig fasd ranger w3m lynx elinks tmux
 		sudo gem install github
-		sudo gem install hub
 		# extra fonts like powerline
 		mkdir ~/.fonts
 		curl -o- https://github.com/powerline/fonts/blob/master/Meslo%20Slashed/Meslo%20LG%20M%20Regular%20for%20Powerline.ttf?raw=true > ~/.fonts/Meslo%20LG%20M%20Regular%20for%20Powerline.ttf
@@ -55,6 +54,12 @@ fi
 echo "Switching to zsh"
 chsh -s $(which zsh)
 zsh
+
+# zsh plugins
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/jimeh/zsh-peco-history.git $ZSH_CUSTOM/plugins/zsh-peco-history
+git clone https://github.com/psprint/zsh-select.git $ZSH_CUSTOM/plugins/zsh-select
+git clone https://github.com/b4b4r07/zsh-vimode-visual.git $ZSH_CUSTOM/plugins/zsh-vimode-visual
 
 # Config Git
 echo "Configuring git"
@@ -72,14 +77,22 @@ my_node_version=$(nvm ls-remote | grep Latest | tail -1 | awk '{print $1}')
 nvm install $my_node_version
 nvm use $my_node_version
 echo "nvm use $my_node_version" >> ~/.zshrc
-npm i -g npm
+npm i -g npm yarn
 npm i -g bash-language-server tern typescript node-sass
 
 echo "Taking care of your zsh-stuff ..."
+
 # oh-my-zsh
-git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+# themes
+git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
+# plugins
 git clone https://github.com/zsh-users/zsh-completions.git ~/.oh-my-zsh/custom/plugins/zsh-completions
+git clone https://github.com/wbingli/zsh-wakatime.git ~/.oh-my-zsh/custom/plugins/zsh-wakatime
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+mkdir ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/highlighters/url && curl -o- https://raw.githubusercontent.com/ascii-soup/zsh-url-highlighter/master/url/url-highlighter.zsh > ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/highlighters/url/url-highlighter.zsh
+
 # zshconfig
 curl -o- https://raw.githubusercontent.com/joehannes-os/dotfiles/master/.zshrc > ~/.zshrc
 autoload -U compinit && compinit
@@ -96,6 +109,8 @@ cd
 cd ~/.local/git
 hub clone gpakosz/.tmux oh-my-tmux
 cp oh-my-tmux/.tmux.con* ~/
+
+sudo wget https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh -O /usr/local/share/zsh/site-functions/_tmuxinator
 
 mkdir joehannes-os && cd joehannes-os
 hub clone joehannes-os/setup
