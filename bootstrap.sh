@@ -39,8 +39,9 @@ if [[ `uname` == 'Linux' ]]; then
 		sudo apt install -y taskwarrior timewarrior bugwarrior tasksh
 		sudo apt install -y make ruby golang python-gobject
 		sudo apt install -y chromium-browser qutebrowser
-		sudo apt install -y silversearcher-ag peco yank tig fasd ranger w3m lynx elinks tmux
-		sudo gem install github
+    sudo apt install -y neomutt msmtp pass
+		sudo apt install -y silversearcher-ag ripgrep peco yank tig bat fasd ranger w3m lynx elinks tmux tmuxinator
+		sudo gem install github cani neovim
 		# extra fonts like powerline
 		mkdir ~/.fonts
 		curl -o- https://github.com/powerline/fonts/blob/master/Meslo%20Slashed/Meslo%20LG%20M%20Regular%20for%20Powerline.ttf?raw=true > ~/.fonts/Meslo%20LG%20M%20Regular%20for%20Powerline.ttf
@@ -53,13 +54,35 @@ fi
 # Change Default shell plus activate zsh without need to logout/login
 echo "Switching to zsh"
 chsh -s $(which zsh)
-zsh
+curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+
+# Ruby Gems
+gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+curl -sSL https://get.rvm.io | bash -s stable --ruby
+gem install github cani neovim
+
+# Python Pip stuff
+curl https://bootstrap.pypa.io/get-pip.py -o ~/.local/bin/get-pip.py
+python2 ~/.local/bin/get-pip.py
+pip install --user --upgrade pynvim
+python2 -m pip install --user --upgrade pynvim
+pip3 install --user --upgrade pynvim
+
+# brew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install fzf fzy fasd
 
 # zsh plugins
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/jimeh/zsh-peco-history.git $ZSH_CUSTOM/plugins/zsh-peco-history
 git clone https://github.com/psprint/zsh-select.git $ZSH_CUSTOM/plugins/zsh-select
 git clone https://github.com/b4b4r07/zsh-vimode-visual.git $ZSH_CUSTOM/plugins/zsh-vimode-visual
+
+# email
+git clone https://github.com/LukeSmithxyz/mutt-wizard ~/.local/git/mutt-wizard
+cd ~/.local/git/mutt-wizard
+sudo make install
+cd
 
 # Config Git
 echo "Configuring git"
@@ -76,9 +99,23 @@ hub clone nvm-sh/nvm
 my_node_version=$(nvm ls-remote | grep Latest | tail -1 | awk '{print $1}')
 nvm install $my_node_version
 nvm use $my_node_version
-echo "nvm use $my_node_version" >> ~/.zshrc
 npm i -g npm yarn
-npm i -g bash-language-server tern typescript node-sass
+npm i -g bash-language-server tern typescript sass manu to-markdown-cli
+
+mkdir ~/.manu-pages
+mkdir ~/.manu-pages/md
+mkdir ~/.manu-pages/html
+mkdir ~/.manu-pages/json
+mkdir ~/.manu-pages/md-detailled
+
+manu pull html svg javascript css sass react redux jest
+cd ~/.manu-pages/html
+for d in *
+  mkdir ../md-detailled/$d
+end
+for d in */*.html; do
+  html2md -i $d -o ../md-detailled/$d.md
+done
 
 echo "Taking care of your zsh-stuff ..."
 
@@ -128,6 +165,8 @@ ln -s ~/.local/git/joehannes-os/bin/camshot ~/.local/bin/camshot
 ln -s ~/.local/git/joehannes-os/bin/camobserve ~/.local/bin/camobserve
 ln -s ~/.local/git/joehannes-os/bin/votd ~/.local/bin/votd
 ln -s ~/.local/git/joehannes-os/bin/yt2mp3 ~/.local/bin/yt2mp3
+ln -s ~/.local/git/joehannes-os/bin/gpwd ~/.local/bin/gpwd
+ln -s ~/.local/git/joehannes-os/bin/kp ~/.local/bin/kp
 
 cd ~/.local/git/joehannes-os/dotfiles
 mkdir ~/.config
@@ -141,7 +180,7 @@ systemctl --user start bugwarrior-pull.timer
 go get -u github.com/arl/gitmux
 
 # nvim
-nvim -c ":PlugInstall" -c ":q" -c ":q"
+nvim -c ":PlugInstall" -c ":qa"
 
 # ECHOS - Corrections ...
 echo "Don't forget to `git config --global user.email` to company email!"
