@@ -6,6 +6,7 @@ cd
 mkdir -p ~/.local/git
 mkdir -p ~/.local/bin
 mkdir -p ~/.local/log
+mkdir ~/.fonts
 
 # APPS
 echo "Installing Software/Apps making feel the dev right at home"
@@ -48,6 +49,25 @@ if [[ `uname` == 'Linux' ]]; then
 		sudo apt install fonts-hack fonts-hack-ttf -y
 		sudo fc-cache
 		cd
+	elif command -v sisyphus &> /dev/null; then
+		sudo sisyphus install app-shells/zsh app-shells/gentoo-zsh-completions
+		sudo sisyphus install -e app-shells/powerline media-fonts/powerline-symbols
+		sudo sisyphus install -e dev-vcs/git dev-vcs/git-flow dev-util/github-cli dev-vcs/git-tools
+		sudo sisyphus install -e app-misc/task app-misc/timew
+		sudo sisyphus install -e dev-lang/ruby dev-lang/go dev-python/pygobject
+		sudo sisyphus install -e www-client/google-chrome www-client/elinks
+		sudo sisyphus install -e mail-client/neomutt mail-mta/msmtp app-admin/pass
+		sudo sisyphus install -e sys-apps/the_silver_searcher sys-apps/ripgrep
+		sudo sisyphus install -e app-shells/peco dev-vcs/tig sys-apps/bat app-shells/fasd app-misc/ranger www-client/w3m app-misc/tmux x11-terms/tmuxinator app-editors/neovim dev-python/neovim-remote dev-ruby/neovim-ruby-client
+		sudo gem install github cani neovim
+		mkdir ~/.fonts
+		curl -o- https://github.com/powerline/fonts/blob/master/Meslo%20Slashed/Meslo%20LG%20M%20Regular%20for%20Powerline.ttf?raw=true > ~/.fonts/Meslo%20LG%20M%20Regular%20for%20Powerline.ttf
+		sudo fc-cache
+	else
+		sudo gem install github cani neovim
+		mkdir ~/.fonts
+		curl -o- https://github.com/powerline/fonts/blob/master/Meslo%20Slashed/Meslo%20LG%20M%20Regular%20for%20Powerline.ttf?raw=true > ~/.fonts/Meslo%20LG%20M%20Regular%20for%20Powerline.ttf
+		sudo fc-cache
 	fi
 fi
 
@@ -70,7 +90,7 @@ pip3 install --user --upgrade pynvim
 
 # brew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-brew install fzf fzy fasd
+brew install fzf fzy fasd ms-jpq/sad/sad
 
 # zsh plugins
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
