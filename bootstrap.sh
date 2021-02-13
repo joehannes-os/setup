@@ -79,7 +79,6 @@ curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/instal
 # Ruby Gems
 gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 curl -sSL https://get.rvm.io | bash -s stable --ruby
-gem install github cani neovim
 
 # Python Pip stuff
 curl https://bootstrap.pypa.io/get-pip.py -o ~/.local/bin/get-pip.py
@@ -130,9 +129,9 @@ mkdir ~/.manu-pages/md-detailled
 
 manu pull html svg javascript css sass react redux jest
 cd ~/.manu-pages/html
-for d in *
+for d in *; do
   mkdir ../md-detailled/$d
-end
+done
 for d in */*.html; do
   html2md -i $d -o ../md-detailled/$d.md
 done
