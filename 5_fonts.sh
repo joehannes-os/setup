@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "5. FONTS"
+
 cd ~/.local/share/fonts
 
 echo "FiraMono NerdFont"

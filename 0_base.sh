@@ -14,10 +14,10 @@ mkdir -p ~/.config/nvim
 
 # APPS
 echo "1.2 Installing Software/Apps making the dev feel right at home"
-echo "... detecting OS ..."
+echo ">> detecting OS"
 
 if [[ `uname` == 'Darwin' ]]; then
-	echo "... Darwin/Mac OS"
+	echo ">> Darwin/Mac OS"
   # Mac OS - this needs some love, haven't had a Mac in a while
 	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	brew update
@@ -36,10 +36,12 @@ if [[ `uname` == 'Darwin' ]]; then
 	brew install macvim --env-std --with-override-system-vim
 	brew tap git-time-metric/gtm
 	brew install gtm
+  brew tap wfxr/code-minimap
+  brew install code-minimap
 fi
 
 if [[ `uname` == 'Linux' ]]; then
-	echo "... Linux System"
+	echo ">> Linux System"
 
 	if command -v apt &> /dev/null; then
 		echo "... apt based distribution"
@@ -52,7 +54,7 @@ if [[ `uname` == 'Linux' ]]; then
 		sudo apt install -y fonts-powerline powerline
 
 		echo ">> GIT"
-		sudo apt install -y git git-flow git-extras curl
+		sudo apt install -y git git-flow git-extras curl wget
 
 		echo ">> TASKWARRIOR - timetracking"
 		sudo apt install -y taskwarrior timewarrior bugwarrior tasksh
@@ -69,7 +71,7 @@ if [[ `uname` == 'Linux' ]]; then
 		sudo apt install google-crhome-stable
 
 		echo ">> EMAIL"
-    sudo apt install -y neomutt msmtp pass
+    sudo apt install -y neomutt msmtp pass isync
 
 		echo ">> TERMINAL"
 		sudo add-apt-repository ppa:mmstick76/alacritty
@@ -90,7 +92,7 @@ if [[ `uname` == 'Linux' ]]; then
 		sudo apt install fonts-hack fonts-hack-ttf -y
 		sudo fc-cache
 	elif command -v sisyphus &> /dev/null; then
-		echo "... sisyphus based distribution"
+		echo ">> sisyphus based distribution/Red Core Linux"
     # Red Core Linux - Gentoo derivative
 		sudo sisyphus install app-shells/zsh app-shells/gentoo-zsh-completions
 		sudo sisyphus install -e app-shells/powerline media-fonts/powerline-symbols
@@ -107,7 +109,8 @@ if [[ `uname` == 'Linux' ]]; then
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 	echo "Brew Formulas"
-	brew install fzf fzy fasd ms-jpq/sad/sad
+  brew tap wfxr/code-minimap
+	brew install fzf fzy fasd ms-jpq/sad/sad code-minimap
 fi
 
 /bin/bash -c ./1_node.sh

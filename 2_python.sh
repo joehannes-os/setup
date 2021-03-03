@@ -2,9 +2,7 @@
 
 echo "2. PYTHON >>"
 
-cd
-
-echo "Fetching out of lifespan python2-pip"
+echo ">> Fetching out of lifespan python2-pip"
 curl https://bootstrap.pypa.io/2.7/get-pip.py -o ~/.local/bin/get-pip_python2.py
 python2 ~/.local/bin/get-pip_python2.py
 
