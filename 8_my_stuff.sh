@@ -4,9 +4,9 @@ echo "Cloning Personal Repos like dotfiles"
 
 mkdir -p ~/.local/git/joehannes-os
 cd ~/.local/git/joehannes-os
-gh repo clone joehannes-os dotfiles
-gh repo clone joehannes-os bin
-gh repo clone joehannes-os devdocs
+gh repo clone joehannes-os/dotfiles
+gh repo clone joehannes-os/bin
+gh repo clone joehannes-os/devdocs
 
 echo "Symlinking Config files"
 rm ~/.tmux.conf.local
